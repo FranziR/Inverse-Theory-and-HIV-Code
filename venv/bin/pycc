@@ -1,0 +1,3 @@
+#!/Users/franziskariegger/Documents/ETH/09_Further/HIV and Inverse Theory/03_Code/venv/bin/python
+from numba.pycc import main
+main()
