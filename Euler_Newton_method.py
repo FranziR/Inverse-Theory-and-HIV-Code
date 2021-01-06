@@ -10,9 +10,8 @@ rc('text', usetex=True)
 matplotlib.rcParams['text.usetex'] = True
 '''Defining simulation parameters'''
 tol = 1e-8
-
 t_0 = 0
-t_end = 800  # first two days
+t_end = 800  # first two years
 h = 0.001
 Nt = int(1 + (t_end - t_0) / h)
 t = np.linspace(t_0, t_end, Nt)
@@ -45,7 +44,6 @@ def NDF2(x_old, u_old, x_init, h):
     invA = np.linalg.inv(A)
     psi = 3 / 2 * u_old[:, -1] - 12/5 * u_old[:, -2] - 9/10 * u_old[:, -3]
     rhs = 0.6*h*f_Wu(x_old) - psi - (x_old - x_init)
-    # r = (1 - alpha) * (x_old - x_init) - 1 / gamma * (h * f_Wu(x_old) - backwards)
     x_new = x_old + np.matmul(invA, rhs)
     return x_new
 
@@ -53,7 +51,6 @@ solver = 'Euler'
 
 if solver == 'Euler':
     for i in range(1, Nt):
-        # guess = u[:, i - 1] + h * f_Wu(u[:, i-1])
         guess = u[:, i - 1] + h * f_Rong(u[:, i - 1])
 
         x_old = guess
